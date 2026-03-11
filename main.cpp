@@ -7,7 +7,7 @@
 // #include "Task1_Queue.hpp"
 // #include "Task2_Nav.hpp"
 // #include "Task3_Log.hpp"
-// #include "Task4_Priority.hpp"
+#include "Task4_Priority.hpp"
 
 using namespace std;
 
@@ -54,10 +54,29 @@ int main() {
                 cout << "[System] Launching Task 3 Module...\n";
                 // Member 3's function goes here, e.g., displayActivityLog();
                 break;
-            case 4:
+            case 4:{
                 cout << "[System] Launching Task 4 Module...\n";
-                // Member 4's function goes here, e.g., generateAtRiskReport();
+                
+                // 1. Create your Priority Queue object
+                AtRiskPriorityQueue riskQueue;
+
+                cout << "[System] Analyzing recent activity logs (Simulation)...\n";
+
+                //2. Read the actual logs.csv file directly
+                riskQueue.loadFromLogsCSV("logs.csv");
+
+                // 3. Display the sorted list to the console
+                // If your Priority Queue works, Bob MUST be #1, Charlie #2, Alice #3
+                riskQueue.displayQueue();
+
+                // 4. Export the result to CSV as required by Assignment
+                riskQueue.exportToCSV();
+
+                cout << "\n[System] Task 4 Module executed successfully. Press Enter to return to menu.\n";
+                cin.ignore(); // Wait for user to read the console before clearing
+                cin.get();
                 break;
+            }
             case 5:
                 cout << "[System] Shutting down PLAPS... Goodbye!\n";
                 break;
