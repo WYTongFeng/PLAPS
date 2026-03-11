@@ -4,25 +4,22 @@
 #include <string>
 using namespace std;
 
-// This struct acts as the blueprint for every student in the system.
-// Because you are building custom data structures (like Linked Lists), 
-// we include a 'next' pointer right inside the struct to make things easier.
 struct Student {
-    string studentID;
-    string name;
-    int riskScore;         // Used by Task 4 (Priority Queue)
-    int currentActivityID; // Used by Task 2 & 3
+    string studentID;         // e.g., "TP012345"
+    string name;              // e.g., "Ali"
+    int riskScore;            // Used by Task 4 (Priority Queue)
+    string recommendedAction; // NEW: Required for Task 4's CSV export
     
     // Pointers for building custom linked lists, queues, or stacks
     Student* next;         
-    Student* prev;         // Useful if Task 2 uses a Doubly Linked List
+    Student* prev;         
 
-    // Constructor to easily create a new student
-    Student(string id = "", string n = "", int risk = 0) {
+    // Constructor
+    Student(string id = "", string n = "", int risk = 0, string action = "None") {
         studentID = id;
         name = n;
         riskScore = risk;
-        currentActivityID = 0;
+        recommendedAction = action;
         next = nullptr;
         prev = nullptr;
     }

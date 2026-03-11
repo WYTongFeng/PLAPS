@@ -25,3 +25,6 @@ The Required Columns:
     RecommendedAction (e.g., "Repeat topic" or "Attempt easier activity") 
 
 Example CSV Row: TP123456, Ali, 88, Repeat Pointers module
+
+# students.csv
+StudentID,Name,RiskScore,TotalTimeSpent,TotalFailedAttempts

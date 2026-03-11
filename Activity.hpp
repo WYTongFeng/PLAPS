@@ -4,21 +4,21 @@
 #include <string>
 using namespace std;
 
-// This struct acts as the blueprint for every learning activity.
-// Task 2 will use this to navigate, and Task 3 will use this to write the logs.csv file.
 struct Activity {
-    string activityID;
-    string topic;         // e.g., "Arrays", "Linked Lists"
-    string difficulty;    // e.g., "Easy", "Medium", "Hard"
-    int score;            // The student's score 
+    string logID;         // e.g., "LOG001"
+    string studentID;     // NEW: Required so Task 3 knows who did the activity
+    string topic;         // e.g., "Arrays"
+    string difficulty;    // e.g., "Easy", "Hard"
+    int score;            // Student's score for this activity
 
     // Pointers for building the Stack or Doubly Linked List in Task 2
     Activity* next;
     Activity* prev;
 
     // Constructor
-    Activity(string id = "", string t = "", string diff = "", int s = 0) {
-        activityID = id;
+    Activity(string lID = "", string sID = "", string t = "", string diff = "", int s = 0) {
+        logID = lID;
+        studentID = sID;
         topic = t;
         difficulty = diff;
         score = s;
