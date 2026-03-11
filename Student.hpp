@@ -5,21 +5,21 @@
 using namespace std;
 
 struct Student {
-    string studentID;         // e.g., "TP012345"
-    string name;              // e.g., "Ali"
-    int riskScore;            // Used by Task 4 (Priority Queue)
-    string recommendedAction; // NEW: Required for Task 4's CSV export
+    string studentID;         // Maps to students.csv & at_risk_students.csv
+    string name;              // Maps to students.csv
+    int riskScore;            // Maps to at_risk_students.csv
+    string recommendation;    // Maps to at_risk_students.csv (Renamed to match CSV)
     
     // Pointers for building custom linked lists, queues, or stacks
     Student* next;         
     Student* prev;         
 
     // Constructor
-    Student(string id = "", string n = "", int risk = 0, string action = "None") {
+    Student(string id = "", string n = "", int risk = 0, string rec = "None") {
         studentID = id;
         name = n;
         riskScore = risk;
-        recommendedAction = action;
+        recommendation = rec;
         next = nullptr;
         prev = nullptr;
     }
