@@ -4,7 +4,7 @@
 
 // --- FUTURE INCLUDES ---
 // When your team members create their files, uncomment these:
-// #include "Task1_Queue.hpp"
+#include "Task1_Queue.hpp"
 // #include "Task2_Nav.hpp"
 // #include "Task3_Log.hpp"
 #include "Task4_Priority.hpp"
