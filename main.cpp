@@ -6,7 +6,7 @@
 // When your team members create their files, uncomment these:
 #include "Task1_Queue.hpp"
 // #include "Task2_Nav.hpp"
-// #include "Task3_Log.hpp"
+#include "Task3_Log.hpp"
 #include "Task4_Priority.hpp"
 
 using namespace std;
@@ -52,7 +52,10 @@ int main() {
                 break;
             case 3:
                 cout << "[System] Launching Task 3 Module...\n";
-                // Member 3's function goes here, e.g., displayActivityLog();
+                runTask3Module(); 
+                cout << "\n[System] Exiting Task 3 Module. Press Enter to return to main menu.\n";
+                cin.ignore(10000, '\n'); 
+                cin.get();
                 break;
             case 4:{
                 cout << "[System] Launching Task 4 Module...\n";
