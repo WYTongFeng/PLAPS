@@ -1,4 +1,2 @@
 StudentID,RiskScore,Recommendation
-A002,80,Please consult the lecturer for 1-to-1 help.
-A003,30,Review the study materials and try an easier activity.
-A001,0,Keep up the good work!
+A001,80,[Review materials. ] [Review materials. ] [Max attempts reached - Consult Lecturer. ] 

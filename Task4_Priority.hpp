@@ -24,59 +24,91 @@ public:
     // ---------------------------------------------------------
     // Function 1: Calculate Risk Score & Generate Recommendation
     // ---------------------------------------------------------
-    // We pass the student's activity data to calculate how much they are struggling.
     void analyzeAndInsert(string id, string name, int score, int timeSpent, int attempt) {
         int calculatedRisk = 0;
-        string rec = "Keep up the good work!"; // Default recommendation
+        string rec = ""; // Start blank so we can combine them!
 
         // Rule 1: Low score adds high risk
         if (score < 40) {
             calculatedRisk += 50;
-            rec = "Urgent: Repeat the entire topic immediately.";
+            rec += "[Urgent: Topic failed. ] ";
         } else if (score < 60) {
             calculatedRisk += 30;
-            rec = "Review the study materials and try an easier activity.";
+            rec += "[Review materials. ] ";
         }
 
         // Rule 2: Too many attempts means they are stuck
         if (attempt >= 3) {
             calculatedRisk += 20;
-            rec = "Please consult the lecturer for 1-to-1 help.";
+            rec += "[Max attempts reached - Consult Lecturer. ] ";
         }
 
         // Rule 3: Spending too much time but getting low score
         if (timeSpent > 60 && score < 50) {
             calculatedRisk += 10;
+            rec += "[Struggling with time limit. ] ";
         }
 
-        // After calculating, insert this student into the Priority Queue
+        // If they did perfectly fine, give them the default message
+        if (calculatedRisk == 0) {
+            rec = "Keep up the good work!";
+        }
+
+        // Send to enqueue (which will now handle duplicates perfectly)
         enqueue(id, name, calculatedRisk, rec);
     }
 
     // ---------------------------------------------------------
-    // Function 2: Insert into Priority Queue (The Core Logic!)
+    // Function 2: Insert into Priority Queue (SMART MERGE VERSION)
     // ---------------------------------------------------------
-    // High risk score goes to the FRONT of the queue.
     void enqueue(string id, string name, int risk, string rec) {
-        // Step 1: Create a new Student node
-        Student* newStudent = new Student(id, name, risk, rec);
+        // STEP 1: Check if this student is ALREADY in the priority queue
+        Student* current = head;
+        Student* previous = nullptr;
+        
+        int totalRisk = risk; 
+        string finalRec = rec;
 
-        // Step 2: Check if queue is empty, OR if the new student has the HIGHEST risk
-        if (head == nullptr || risk > head->riskScore) {
-            // Put the new student at the very front
+        while (current != nullptr) {
+            if (current->studentID == id) {
+                // We found a duplicate! Add the old risk and the new risk together
+                totalRisk += current->riskScore;
+                
+                // Combine the recommendations if they aren't default
+                if (current->recommendation != "Keep up the good work!" && rec != "Keep up the good work!") {
+                    finalRec = current->recommendation + rec;
+                } else if (rec == "Keep up the good work!") {
+                    finalRec = current->recommendation; // Keep the warning!
+                }
+
+                // REMOVE the old node temporarily so we can re-insert them in their new sorted position
+                if (previous == nullptr) {
+                    head = current->next;
+                } else {
+                    previous->next = current->next;
+                }
+                delete current;
+                break;
+            }
+            previous = current;
+            current = current->next;
+        }
+
+        // STEP 2: Create the new updated student node
+        Student* newStudent = new Student(id, name, totalRisk, finalRec);
+
+        // STEP 3: Insert them back into the queue based on their NEW TOTAL risk score
+        if (head == nullptr || totalRisk > head->riskScore) {
+            // Put at the very front
             newStudent->next = head;
             head = newStudent;
-        } 
-        // Step 3: Otherwise, find the correct position in the middle or end
-        else {
-            Student* current = head;
-            
-            // Keep moving forward as long as the next student's risk is higher than ours
-            while (current->next != nullptr && current->next->riskScore >= risk) {
+        } else {
+            current = head;
+            // Find the correct spot
+            while (current->next != nullptr && current->next->riskScore >= totalRisk) {
                 current = current->next;
             }
-            
-            // Insert the new student right after the 'current' student
+            // Insert
             newStudent->next = current->next;
             current->next = newStudent;
         }

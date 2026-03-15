@@ -34,4 +34,7 @@ public:
 // Global function to run Task 3 module from main.cpp
 void runTask3Module();
 
+// --- NEW: Share the queue with Task 2! ---
+extern ActivityLogQueue globalLogQueue;
+
 #endif

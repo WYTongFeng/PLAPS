@@ -2,10 +2,9 @@
 #include <string>
 #include "Student.hpp"
 
-// --- FUTURE INCLUDES ---
-// When your team members create their files, uncomment these:
+// --- ALL MODULE INCLUDES ---
 #include "Task1_Queue.hpp"
-// #include "Task2_Nav.hpp"
+#include "Task2_Nav.hpp"      // <-- Uncommented your Task 2!
 #include "Task3_Log.hpp"
 #include "Task4_Priority.hpp"
 
@@ -44,11 +43,17 @@ int main() {
         switch (choice) {
             case 1:
                 cout << "[System] Launching Task 1 Module...\n";
-                // Member 1's function goes here, e.g., registerStudent();
+                runTask1Module(); // <-- Added Task 1 launch!
+                cout << "\n[System] Exiting Task 1 Module. Press Enter to return to main menu.\n";
+                cin.ignore(10000, '\n'); 
+                cin.get();
                 break;
             case 2:
                 cout << "[System] Launching Task 2 Module...\n";
-                // Member 2's function goes here, e.g., navigateActivities();
+                runTask2Module(); // <-- Added your Task 2 launch!
+                cout << "\n[System] Exiting Task 2 Module. Press Enter to return to main menu.\n";
+                cin.ignore(10000, '\n'); 
+                cin.get();
                 break;
             case 3:
                 cout << "[System] Launching Task 3 Module...\n";
@@ -65,18 +70,17 @@ int main() {
 
                 cout << "[System] Analyzing recent activity logs (Simulation)...\n";
 
-                //2. Read the actual logs.csv file directly
+                // 2. Read the actual logs.csv file directly
                 riskQueue.loadFromLogsCSV("logs.csv");
 
                 // 3. Display the sorted list to the console
-                // If your Priority Queue works, Bob MUST be #1, Charlie #2, Alice #3
                 riskQueue.displayQueue();
 
                 // 4. Export the result to CSV as required by Assignment
                 riskQueue.exportToCSV();
 
                 cout << "\n[System] Task 4 Module executed successfully. Press Enter to return to menu.\n";
-                cin.ignore(); // Wait for user to read the console before clearing
+                cin.ignore(); 
                 cin.get();
                 break;
             }

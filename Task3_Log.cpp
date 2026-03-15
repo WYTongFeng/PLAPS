@@ -112,10 +112,12 @@ void ActivityLogQueue::exportToCSV(string filename) {
     cout << "[System] Activity logs successfully exported to " << filename << "\n";
 }
 
+// --- NEW: Create the shared global queue here ---
+ActivityLogQueue globalLogQueue(50);
+
 // Global entry point function to be called by main.cpp menu
 void runTask3Module() {
-    // Initializing with a small capacity (e.g., 5) to easily test and demonstrate the overwrite mechanism
-    static ActivityLogQueue logQueue(5); 
+
     int choice = 0;
 
     while (true) {
@@ -137,19 +139,22 @@ void runTask3Module() {
             cout << "Score (0-100): "; cin >> score;
             cout << "Attempt Number: "; cin >> attempt;
             
-            logQueue.addLog(id, course, time, score, attempt);
+            // Use globalLogQueue!
+            globalLogQueue.addLog(id, course, time, score, attempt);
             cout << "[System] Log added successfully.\n";
         } else if (choice == 2) {
-            logQueue.displayAllLogs();
+            // Use globalLogQueue!
+            globalLogQueue.displayAllLogs();
         } else if (choice == 3) {
             string target;
             cout << "Enter Student ID to filter: ";
             cin >> target;
-            logQueue.filterLogsByStudent(target);
+            globalLogQueue.filterLogsByStudent(target);
         } else if (choice == 4) {
-            logQueue.exportToCSV("exported_logs.csv");
+            // Use globalLogQueue AND export to the correct file!
+            globalLogQueue.exportToCSV("logs.csv");
         } else if (choice == 5) {
-            break; // Exit the loop and return to the main menu
+            break; 
         } else {
             cout << "[Error] Invalid choice.\n";
         }

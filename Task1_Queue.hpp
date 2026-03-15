@@ -43,9 +43,12 @@ public:
     void autoFillSession();
     void logoutLearner(int slot);
     void showStatus();
+    
+    bool isStudentActive(string id); // <-- NEW: The security check function
 };
 
 // 全局调用函数
 void runTask1Module();
 
+extern Task1Manager globalManager; // <-- NEW: Makes the manager visible to Task 2
 #endif

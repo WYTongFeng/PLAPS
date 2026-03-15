@@ -2,6 +2,9 @@
 #include <fstream>
 #include <sstream>
 
+// --- NEW: Create the actual global manager here ---
+Task1Manager globalManager;
+
 // --- RegistrationQueue 实现 ---
 RegistrationQueue::RegistrationQueue() : front(nullptr), rear(nullptr) {}
 
@@ -94,33 +97,50 @@ void Task1Manager::logoutLearner(int slot) {
 }
 
 void Task1Manager::showStatus() {
-    cout << "\n--- PLAPS Task 1 Status (3 Capacity) ---" << endl;
+    cout << "\n--- PLAPS Task 1 Status (3 Capacity) ---\n";
     for (int i = 0; i < 3; i++) {
-        cout << "Slot " << i + 1 << ": " << (slotOccupied[i] ? activeSession[i]->name : "[Available]") << endl;
+        if (slotOccupied[i] && activeSession[i] != nullptr) {
+            // Uses ->studentID and ->name to match your .hpp exactly!
+            cout << "Slot " << i + 1 << ": [" << activeSession[i]->studentID << "] " << activeSession[i]->name << "\n";
+        } else {
+            cout << "Slot " << i + 1 << ": [EMPTY]\n";
+        }
     }
-    waitingQueue.display();
-    cout << "----------------------------------------\n" << endl;
+    // Uses .display() to match your .hpp exactly!
+    waitingQueue.display(); 
+    cout << "----------------------------------------\n";
+}
+
+// --- NEW: The security check logic ---
+bool Task1Manager::isStudentActive(string id) {
+    for (int i = 0; i < 3; i++) {
+        // If the slot is taken AND the ID matches the student sitting there
+        if (slotOccupied[i] && activeSession[i] != nullptr && activeSession[i]->studentID == id) {
+            return true; // Access Granted!
+        }
+    }
+    return false; // Access Denied! They are not in the lab.
 }
 
 // --- 全局入口 ---
 void runTask1Module() {
-    static Task1Manager manager;
+    // REMOVE THIS LINE: static Task1Manager manager;
     int choice;
     while (true) {
-        cout << "1. Manual Register\n2. Load from student.csv\n3. Exit Session\n4. Show Status\n5. Back\nChoice: ";
-        cin >> choice;
-        if (choice == 1) {
-            string id, name;
-            cout << "ID: "; cin >> id;
-            cout << "Name: "; cin.ignore(); getline(cin, name);
-            manager.registerLearner(id, name);
-        } else if (choice == 2) {
-            manager.loadFromCSV();
-        } else if (choice == 3) {
-            int s; cout << "Slot (1-3): "; cin >> s;
-            manager.logoutLearner(s);
-        } else if (choice == 4) {
-            manager.showStatus();
-        } else break;
-    }
+            cout << "1. Manual Register\n2. Load from student.csv\n3. Exit Session\n4. Show Status\n5. Back\nChoice: ";
+            cin >> choice;
+            if (choice == 1) {
+                string id, name;
+                cout << "ID: "; cin >> id;
+                cout << "Name: "; cin.ignore(); getline(cin, name);
+                globalManager.registerLearner(id, name); // Changed to globalManager
+            } else if (choice == 2) {
+                globalManager.loadFromCSV(); // Changed to globalManager
+            } else if (choice == 3) {
+                int s; cout << "Slot (1-3): "; cin >> s;
+                globalManager.logoutLearner(s); // Changed to globalManager
+            } else if (choice == 4) {
+                globalManager.showStatus(); // Changed to globalManager
+            } else break;
+        }
 }
