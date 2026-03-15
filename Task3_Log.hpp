@@ -25,6 +25,7 @@ public:
     ~ActivityLogQueue();
 
     // Core queue operations
+    void loadFromCSV(string filename); 
     void addLog(string id, string course, int time, int score, int attempt);
     void displayAllLogs();
     void filterLogsByStudent(string targetID);
@@ -34,7 +35,6 @@ public:
 // Global function to run Task 3 module from main.cpp
 void runTask3Module();
 
-// --- NEW: Share the queue with Task 2! ---
 extern ActivityLogQueue globalLogQueue;
 
 #endif
