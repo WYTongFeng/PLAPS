@@ -1,4 +1,5 @@
 StudentID,CourseName,TimeSpent,Score,AttemptNumber
 A001,Arrays,25,40,1
-A001,Arrays,25,40,2
-A001,Loops,25,60,3
+A001,Loops,25,60,2
+A002,Arrays,25,40,1
+A003,Pointers,25,60,1

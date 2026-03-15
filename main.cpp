@@ -64,23 +64,9 @@ int main() {
                 break;
             case 4:{
                 cout << "[System] Launching Task 4 Module...\n";
-                
-                // 1. Create your Priority Queue object
-                AtRiskPriorityQueue riskQueue;
-
-                cout << "[System] Analyzing recent activity logs (Simulation)...\n";
-
-                // 2. Read the actual logs.csv file directly
-                riskQueue.loadFromLogsCSV("logs.csv");
-
-                // 3. Display the sorted list to the console
-                riskQueue.displayQueue();
-
-                // 4. Export the result to CSV as required by Assignment
-                riskQueue.exportToCSV();
-
-                cout << "\n[System] Task 4 Module executed successfully. Press Enter to return to menu.\n";
-                cin.ignore(); 
+                runTask4Module(); 
+                cout << "\n[System] Exiting Task 4 Module. Press Enter to return to main menu.\n";
+                cin.ignore(10000, '\n'); 
                 cin.get();
                 break;
             }
