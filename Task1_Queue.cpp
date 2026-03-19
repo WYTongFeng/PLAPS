@@ -2,10 +2,10 @@
 #include <fstream>
 #include <sstream>
 
-// --- NEW: Create the actual global manager here ---
+// --- the actual global manager---
 Task1Manager globalManager;
 
-// --- RegistrationQueue 实现 ---
+// --- RegistrationQueue implement ---
 RegistrationQueue::RegistrationQueue() : front(nullptr), rear(nullptr) {}
 
 void RegistrationQueue::enqueue(string id, string name) {
@@ -42,7 +42,7 @@ void RegistrationQueue::display() {
     cout << "END" << endl;
 }
 
-// --- Task1Manager 实现 ---
+// --- Task1Manager implementation---
 Task1Manager::Task1Manager() {
     for (int i = 0; i < 3; i++) {
         activeSession[i] = nullptr;
@@ -111,7 +111,7 @@ void Task1Manager::showStatus() {
     cout << "----------------------------------------\n";
 }
 
-// --- NEW: The security check logic ---
+// --- The security check logic ---
 bool Task1Manager::isStudentActive(string id) {
     for (int i = 0; i < 3; i++) {
         // If the slot is taken AND the ID matches the student sitting there
@@ -122,7 +122,7 @@ bool Task1Manager::isStudentActive(string id) {
     return false; // Access Denied! They are not in the lab.
 }
 
-// --- 全局入口 ---
+// --- Global Entry Point ---
 void runTask1Module() {
     // REMOVE THIS LINE: static Task1Manager manager;
     int choice;

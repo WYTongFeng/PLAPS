@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// 学生节点结构
+// Student node structure
 struct StudentNode {
     string studentID;
     string name;
@@ -15,7 +15,7 @@ struct StudentNode {
     StudentNode(string id, string n) : studentID(id), name(n), next(nullptr) {}
 };
 
-// 队列类声明
+// Queue class declaration
 class RegistrationQueue {
 private:
     StudentNode* front;
@@ -29,7 +29,7 @@ public:
     void display();
 };
 
-// 管理类声明
+// management statement
 class Task1Manager {
 private:
     StudentNode* activeSession[3]; 
@@ -44,11 +44,11 @@ public:
     void logoutLearner(int slot);
     void showStatus();
     
-    bool isStudentActive(string id); // <-- NEW: The security check function
+    bool isStudentActive(string id); 
 };
 
-// 全局调用函数
+// Call function globally
 void runTask1Module();
 
-extern Task1Manager globalManager; // <-- NEW: Makes the manager visible to Task 2
+extern Task1Manager globalManager; // Makes the manager visible to Task 2
 #endif
